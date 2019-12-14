@@ -1,41 +1,75 @@
 
--  `dot some.dg | docker run --rm -i justin2004/graph-easy-box`
+-  `cat some.dg | docker run --rm -i justin2004/graph-easy-box`
+
+---
 
 - example some.dg:
 
 ```
-digraph{
-	a-b
-	b->c
+digraph G {
+	rankdir=LR;
+	a->b;
+	b->c;
+	x->b;
+	z->x; 
 }
-
 ```
 
 
 - yields:
 
 ```
++---+     +---+     +---+
+| a | --> | b | --> | c |
++---+     +---+     +---+
+            ^
+            |
+            |
++---+     +---+
+| z | --> | x |
++---+     +---+
 
-+---+
-| a |
-+---+
-  |
-  |
-  v
-+---+
-| b |
-+---+
-  |
-  |
-  v
-+---+
-| c |
-+---+
+```
 
+---
+
+- example graph.g
+
+
+```
+graph BOB {
+       a -- b -- c;
+       a -- {x y};
+       x -- c;
+       x -- y;
+}
+```
+
+- yields:
+
+```
+
+  +-------------------+
+  |                   |
++---+     +---+     +---+
+| y | --- | x | --- | a |
++---+     +---+     +---+
+            |         |
+            |         |
+            |         |
+            |       +---+
+            |       | b |
+            |       +---+
+            |         |
+            |         |
+            |         |
+            |       +---+
+            +-------| c |
+                    +---+
 ```
 
 
 
 
+- see `man graphviz` and `man dot` for graph and digraph syntax
 
-- see man graphviz
